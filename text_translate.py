@@ -8,14 +8,12 @@
 
 from translate import Translator
 
-print("Enter Input Language:")
-in_lang = input()
-print("Enter Output Language:")
-out_lang = input()
-
 print("Enter String to translate:")
 in_text = input()
 
-translator = Translator(from_lang = in_lang, to_lang = out_lang)
+print("Enter Output Language:")
+out_lang = input()
+
+translator = Translator(to_lang = out_lang)
 trans_text = translator.translate(in_text)
 print(trans_text)
