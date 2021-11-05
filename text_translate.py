@@ -1,5 +1,5 @@
 # Program to translate inputed string to desired language
-# Input: Input language, Output Language, String to be translated
+# Input: Output Language, String to be translated
 # Output: Translated String
 
 # This program uses translate library
