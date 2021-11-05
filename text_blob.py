@@ -6,16 +6,39 @@
 # Learn more about translate here:-
 # https://pypi.org/project/textblob/
 
-# Update:
+# Update 1:
 # Added functionality to speak out the translated output.
 # I have used gtts library for producing the audio and playsound library to play the produced audio
+
+# Update 2:
+# Added speech recognition to the program so that it can take input string using speech recognition. The user still needs to type the output language.
+# I have used speech_recognition, pyaudio & pyspeech libraries for the above purpose.
+
 
 from textblob import TextBlob
 from gtts import gTTS
 from playsound import playsound
+import speech_recognition as sr
 
-print("Enter Input String:")
-string = input()
+
+r = sr.Recognizer()
+
+with sr.Microphone() as source:
+    print("Listening...")
+    audio = r.listen(source)
+    print("Processing...")
+try:
+    string = r.recognize_google(audio)
+    print("Input: " + string)
+except UnknownValueError:
+    print("Sorry! Unable to understand you")
+except RequestError:
+    print("Unable to request Google Speech Recognition services. Make sure you have good internet connection.")
+
+
+# print("Enter Input String:")
+# string = input()
+
 print("Enter Output language:")
 out_lang = input()
 
