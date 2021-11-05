@@ -30,14 +30,15 @@ with sr.Microphone() as source:
 try:
     string = r.recognize_google(audio)
     print("Input: " + string)
-except UnknownValueError:
+except sr.UnknownValueError:
     print("Sorry! Unable to understand you")
-except RequestError:
+    print("Try typing in the input")
+    string = input()
+    
+except sr.RequestError:
     print("Unable to request Google Speech Recognition services. Make sure you have good internet connection.")
-
-
-# print("Enter Input String:")
-# string = input()
+    print("Try typing in the input")
+    string = input()
 
 print("Enter Output language:")
 out_lang = input()
@@ -48,7 +49,8 @@ try:
     print("Translated Text:")
     print(translated_text)
 except:
-    print("Error while translating. Probably the input string and the translated string are same.")
+    print("Error while translating. Probably the input string and the translated string are same or your internet is unstable.")
+    exit()
 
 try:
     tts = gTTS(text=str(translated_text), lang=str(out_lang))
@@ -56,3 +58,4 @@ try:
     playsound("translation.mp3")
 except:
     print("Error while performing text-to-speech")
+    exit()
