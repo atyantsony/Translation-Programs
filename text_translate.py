@@ -22,13 +22,14 @@
 # Option for typing in the input is also available. If the speech recognition fails for some reason, then the user can type in the inputs.
 # I have used pycountry library to take out info about different languages.
 
-
-from translate import Translator
-import speech_recognition as sr
-from playsound import playsound
-from gtts import gTTS
-import pycountry as pyctry
-
+try:
+    from translate import Translator
+    import speech_recognition as sr
+    from playsound import playsound
+    from gtts import gTTS
+    import pycountry as pyctry
+except:
+    print("Error while importing required modules. \nPlease make sure you have installed all the modules.")
 def record(lang='en'):
     # A fucntion to recognize input speech audio and convert it to text of speech language.
     # Input: An optional parameter of recognising the audio input as specific language speech. By default, it is english
@@ -49,7 +50,7 @@ def record(lang='en'):
         string = input()
         
     except sr.RequestError:
-        print("Unable to request Google Speech Recognition services. Make sure you have good internet connection.")
+        print("Unable to request Google Speech Recognition services. \nMake sure you have good internet connection.")
         print("Try typing in:")
         string = input()
 
@@ -82,7 +83,7 @@ try:
     trans_text = translator.translate(string_speech)
     print(trans_text)
 except:
-    print("Error while translating. Probably the input string and output string are same or your internet is unstable.")
+    print("Error while translating. \nProbably the input string and output string are same or your internet is unstable.")
     exit()
 
 # text-to-speech 

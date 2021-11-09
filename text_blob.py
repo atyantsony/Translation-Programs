@@ -22,11 +22,17 @@
 # Option for typing in the input is also available. If the speech recognition fails for some reason, then the user can type in the inputs.
 # I have used pycountry library to take out info about different languages.
 
-from textblob import TextBlob
-from gtts import gTTS
-from playsound import playsound
-import speech_recognition as sr
-import pycountry as pyctry
+from nltk import text
+
+
+try:
+    import textblob
+    from gtts import gTTS
+    from playsound import playsound
+    import speech_recognition as sr
+    import pycountry as pyctry
+except:
+    print("Error while importing required modules. Please make sure you have installed all the required modules.")
 
 def record(lang='en'):
     # A fucntion to recognize input speech audio and convert it to text of speech language.
@@ -76,12 +82,16 @@ string_speech = record(lang_arr[0])
 
 # Translating using textblob
 try:
-    adding_blob = TextBlob(string_speech)
+    adding_blob = textblob.TextBlob(string_speech)
     translated_text = adding_blob.translate(to = lang_arr[1])
     print("Translated Text:")
     print(translated_text)
+except textblob.exceptions.NotTranslated:
+    translated_text = string_speech
+    print("Translated Text:")
+    print(translated_text)
 except:
-    print("Error while translating. Probably the input string and the translated string are same or your internet is unstable.")
+    print("Error while translating. \nProbably the input string and the translated string are same or your internet is unstable.")
     exit()
 
 
